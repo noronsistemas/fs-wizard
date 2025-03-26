@@ -18,10 +18,15 @@
       align-items: center;
       height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
     h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
+      transition: text-shadow 0.3s ease;
+    }
+    h1:hover {
+      text-shadow: 0 0 15px #7f00ff;
     }
     p {
       font-size: 1.2rem;
@@ -32,6 +37,7 @@
       width: 180px;
       height: auto;
       margin-bottom: 1rem;
+      animation: pulse 3s infinite;
     }
     .button {
       background-color: #1e1e1e;
@@ -53,9 +59,21 @@
       font-size: 0.9rem;
       color: #888;
     }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
   </style>
 </head>
 <body>
+  <canvas id="stars"></canvas>
   <img src="logo.png" alt="FS-Wizard logo" class="logo">
   <h1>FS-Wizard</h1>
   <p>Toolkit arcano para explorar, recuperar y revelar secretos de sistemas de archivos.<br>Creado por <strong>Trinity</strong> y <strong>Guille</strong>.</p>
@@ -63,6 +81,41 @@
   <footer>
     &copy; 2025 Trinity & Guille — Libre para el mundo hacker 🖤
   </footer>
+
+  <script>
+    // Partículas de estrellas animadas
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let width, height, stars;
+
+    function init() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      stars = Array.from({ length: 100 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.5 + 0.2
+      }));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = '#7f00ff';
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > height) star.y = 0;
+      });
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', init);
+    init();
+    draw();
+  </script>
 </body>
 </html>
 
