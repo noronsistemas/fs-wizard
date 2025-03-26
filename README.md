@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="logo.png" alt="FS-Wizard logo" width="300"/>
+</p>
+
+# 🧙 FS-Wizard
+
+
+
+
 # 🧙 FS-Wizard
 
 Exploración profunda de sistemas de archivos — por Trinity 🤍 y Guille 🧠  
